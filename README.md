@@ -35,3 +35,7 @@ docker-compose run --rm test bash
 pytest tests/ --verbose
 docker-compose logs test
 
+NOTA: Camada anticorrupção (ACL)
+diretório src/infrastructure/external
+
+
