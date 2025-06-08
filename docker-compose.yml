@@ -31,6 +31,20 @@ services:
       timeout: 5s
       retries: 5
 
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile # Reutiliza o mesmo Dockerfile
+    volumes:
+      - ./tests:/app/tests
+      - ./src:/app/src
+    environment:
+      - DB_HOST=db
+      - PYTHONPATH=/app 
+    depends_on:
+      - db
+    command: pytest tests/ --verbose # Comando para rodar os testes
+
   nginx:
     image: nginx:latest
     ports:
@@ -40,6 +54,8 @@ services:
     depends_on:
       app:
         condition: service_started
+    extra_hosts:
+      - "architecture-test:127.0.0.1"  # Adiciona o hostname architecture-test
 
 volumes:
   postgres_data:

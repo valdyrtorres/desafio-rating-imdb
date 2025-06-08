@@ -9,7 +9,7 @@ API para gerenciamento de avaliações de filmes, integrada com a OMDb API.
 
 ## Configuração
 1. Crie um arquivo `.env` com as variáveis:
- OMDB_API_KEY=your_omdb_api_key
+OMDB_API_KEY=your_omdb_api_key
 DATABASE_URL=postgresql://user:password@db:5432/movie_db
 
 2. Execute:
@@ -26,5 +26,12 @@ Testes
 Execute os testes com:
 bash
 
-pytest tests/
+pytest tests/ ou
+docker-compose run --rm test
+
+Se os testes falharem, você pode inspecionar o ambiente:
+docker-compose run --rm test bash
+
+pytest tests/ --verbose
+docker-compose logs test
 
