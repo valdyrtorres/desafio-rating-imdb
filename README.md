@@ -38,4 +38,15 @@ docker-compose logs test
 NOTA: Camada anticorrupção (ACL)
 diretório src/infrastructure/external
 
+curl --location 'http://architecture-test:90/search-movie?title=Inception&year=2010' \
+--data ''
+
+curl --location 'http://architecture-test:90/create-movie' \
+--header 'Content-Type: application/json' \
+--data '{
+"imdb_id": "tt1375666",
+"user_opinion": "teste 1",
+"user_rating": 5
+}'
+
 
