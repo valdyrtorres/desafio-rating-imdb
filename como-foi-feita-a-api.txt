@@ -1,0 +1,45 @@
+A criação de uma API em Python seguindo as melhores práticas de Arquitetura Hexagonal, Clean Architecture e Domain-Driven Design (DDD) envolve um design estruturado que prioriza separação de responsabilidades, testabilidade e manutenção. 
+
+Segue uma descriçao de como estruturei a API com o objetivo se ter fácil manutenção com base nesses princípios.
+
+1. Visão Geral dos Princípios
+- Arquitetura Hexagonal (Ports and Adapters): Isola a lógica de negócios (core) de frameworks e detalhes técnicos (como bancos de dados ou APIs HTTP). Define portas (interfaces) que especificam o que o sistema faz e adaptadores que conectam o core ao mundo externo.
+- Clean Architecture: Organiza o código em camadas concêntricas, com a lógica de negócios (entidades e casos de uso) no centro, independente de frameworks, bancos de dados ou interfaces de usuário.
+- Domain-Driven Design (DDD): Foca no domínio do problema, modelando entidades, serviços de domínio e repositórios com base no vocabulário do negócio (Ubiquitous Language).
+
+2. Estrutura da API
+A API é dividida em camadas bem definidas, com responsabilidades claras:
+a) Camada de Domínio (domain)
+- Contém a lógica de negócios central, independente de frameworks ou infraestrutura.
+- Entidades (entities): Representam objetos do domínio tipo o movie.py e value_objects tipo review.py que tem opinião e o rating do usuário
+
+b) Camada de Aplicação (application)
+- Serviços de Domínio (services): Implementam regras complexas que não pertencem a uma entidade específica.
+- Portas (ports) - : Definem contratos para interações com o mundo externo (ex.: UserRepository, PaymentGateway).
+
+c) Camada de Infraestrutura (infrastructure)
+Contém implementações concretas das portas definidas no domínio.
+Adaptadores: Conectam o domain a frameworks, bancos de dados ou serviços externos (ex.: FastAPI, SQLAlchemy, Redis).
+
+Adaptadores de Entrada: Recebem requisições externas (ex.: endpoints HTTP com FastAPI).
+
+d) Camada de Apresentação (adapters)
+Define como os dados são apresentados ao cliente (ex.: JSON via FastAPI).
+Pode incluir validação de entrada e formatação de saída.
+- Ferramentas e Tecnologias
+Framework Web: FastAPI para criar endpoints RESTful.
+ORM: SQLAlchemy para interagir com bancos de dados relacionais.
+Injeção de Dependências: python-dependency-injector ou FastAPI Depends para gerenciar dependências entre camadas.
+
+3. Boas Práticas
+- Separação de Responsabilidades: Cada camada tem uma função clara, reduzindo acoplamento.
+- Testabilidade: Portas e injeção de dependências facilitam testes unitários e de integração.
+- Manutenibilidade: A estrutura modular permite alterações em uma camada sem impactar outras.
+- Ubiquitous Language: Usar termos do domínio em todo o código para alinhamento com o negócio.
+- Validação e Tratamento de Erros: Centralizar validações no domínio e use exceções customizadas.
+- Logging e Monitoramento: Integrar ferramentas como logging ou Prometheus para rastreamento.
+
+4 - Benefícios
+Robustez: A separação de camadas e validações no domínio minimizam erros.
+Manutenibilidade: Alterações em uma camada (ex.: trocar o banco de dados) não afetam o core.
+Escalabilidade: Facilita adicionar novos adaptadores (ex.: gRPC, Kafka) ou casos de uso.
