@@ -21,6 +21,12 @@ POST http://localhost:90/create-movie/ - Cria uma avaliação de filme.
 
 GET http://localhost:90/search-movie/ - Busca filmes por título e/ou ano.
 
+ou 
+POST http://architecture-test:90/create-movie/ - Cria uma avaliação de filme.
+
+GET http://architecture-test:90/search-movie/ - Busca filmes por título e/ou ano.
+OBS: Criar entrada architecture-test para 127.0.0.1 no arquivo de hosts
+
 
 Testes
 Execute os testes com:
@@ -38,9 +44,11 @@ docker-compose logs test
 NOTA: Camada anticorrupção (ACL)
 diretório src/infrastructure/external
 
+- Procurar filme
 curl --location 'http://architecture-test:90/search-movie?title=Inception&year=2010' \
 --data ''
 
+- Criar rating
 curl --location 'http://architecture-test:90/create-movie' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -48,5 +56,8 @@ curl --location 'http://architecture-test:90/create-movie' \
 "user_opinion": "teste 1",
 "user_rating": 5
 }'
+
+NOTA IMPORTANTE: Para responder para o domínio architecture-test, criar uma entrada no arquivo de hosts para 127.0.0.1 tipo:
+127.0.0.1 architecture-test
 
 
